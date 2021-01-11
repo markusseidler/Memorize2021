@@ -28,7 +28,7 @@ class EmojiMemoryGame: ObservableObject {
     
     // otherwise: "Cannot use instance member 'createMemoryGame' within property initializer; property initializers run before 'self' is available"... functions cannot be used until all variables are initialized -> solution -> use static function (vars on the type)
     
-     static func createMemoryGame() -> MemoryGame<String> {
+     private static func createMemoryGame() -> MemoryGame<String> {
         let emojis = ["👻", "🎃", "🕷"]
         return MemoryGame<String>(numberOfPairOfCards: emojis.count) { pairIndex in
             emojis[pairIndex]
