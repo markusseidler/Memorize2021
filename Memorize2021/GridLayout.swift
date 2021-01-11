@@ -66,10 +66,10 @@ struct GridLayout {
         if rowCount == 0 || columnCount == 0 {
             return CGPoint.zero
         } else {
-            let point = CGPoint(
-                x: (CGFloat(index % columnCount) + 0.5) * itemSize.width,
-                y: (CGFloat(index / columnCount) + 0.5) * itemSize.height)
-            print("Index \(index), CGPoint\(point)")
+//            let point = CGPoint(
+//                x: (CGFloat(index % columnCount) + 0.5) * itemSize.width,
+//                y: (CGFloat(index / columnCount) + 0.5) * itemSize.height)
+//            print("Index \(index), CGPoint\(point)")
             return CGPoint(
                 x: (CGFloat(index % columnCount) + 0.5) * itemSize.width,
                 y: (CGFloat(index / columnCount) + 0.5) * itemSize.height)

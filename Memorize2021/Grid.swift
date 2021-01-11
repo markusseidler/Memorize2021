@@ -25,7 +25,7 @@ struct Grid<Item, ItemView>: View where Item: Identifiable, ItemView: View {
     }
 
     func bodyWithGridLayout(for item: Item, in layout: GridLayout) -> some View {
-        let index = self.index(of: item)
+        let index = items.firstIndex(matching: item)!
         return viewForItem(item)
             .frame(width: layout.itemSize.width, height: layout.itemSize.height)
             .position(layout.location(ofItemAt: index))
@@ -52,15 +52,7 @@ struct Grid<Item, ItemView>: View where Item: Identifiable, ItemView: View {
 //            .frame(width: layout.itemSize.width, height: layout.itemSize.height)
 //            .position(layout.location(ofItemAt: index))
 //    }
-    
-    func index(of item: Item) -> Int {
-        for index in 0..<items.count {
-            if items[index].id == item.id {
-                return index
-            }
-        }
-        return 0
-    }
+
 }
 
 //struct Grid_Previews: PreviewProvider {
@@ -68,3 +60,4 @@ struct Grid<Item, ItemView>: View where Item: Identifiable, ItemView: View {
 //        Grid()
 //    }
 //}
+

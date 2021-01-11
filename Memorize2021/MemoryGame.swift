@@ -7,16 +7,46 @@
 
 import Foundation
 
-struct MemoryGame<CardContent> {
+struct MemoryGame<CardContent> where CardContent: Equatable{
     
     struct Card: Identifiable {
-        var isFaceUp: Bool = true
+        var isFaceUp: Bool = false
         var isMatched: Bool = false
         var content: CardContent
         var id: Int
     }
     
     var cards: Array<Card>
+    var indexOfTheOneAndOnlyFaceUpCard: Int? {
+        get {
+            
+            cards.indices.filter { cards[$0].isFaceUp }.only
+//            var faceUpCardIndices = [Int]()
+//            for index in cards.indices {
+//                if cards[index].isFaceUp {
+//                    faceUpCardIndices.append(index)
+//                }
+//            }
+//
+//            if faceUpCardIndices.count == 1 {
+//                return faceUpCardIndices.first
+//            } else {
+//                return nil
+//            }
+        }
+        set {
+            for index in cards.indices {
+                cards[index].isFaceUp = index == newValue
+            }
+//            for index in cards.indices {
+//                if index == newValue {
+//                    cards[index].isFaceUp = true
+//                } else {
+//                    cards[index].isFaceUp = false
+//                }
+//            }
+        }
+    }
     
     init(numberOfPairOfCards: Int, cardContentFactory: (Int) -> CardContent) {
         cards = Array<Card>()
@@ -30,23 +60,17 @@ struct MemoryGame<CardContent> {
     mutating func choose(card: Card) {
         // need to change it in place!!! Because it is a struct. Cannot change an assigned variable of it as it would change the copy but not the original value.
         // see CS193P Spring 2020 Lecture 3, 10 mins onwards
-        
-        print("Card chosen: \(card)")
-        
-        let chosenIndex: Int = index(of: card)
-        cards[chosenIndex].isFaceUp = !cards[chosenIndex].isFaceUp
-        print(cards[chosenIndex])
-    }
-    
-    private func index(of card: Card) -> Int {
-        for index in 0..<cards.count {
-            if cards[index].id == card.id {
-                return index
+ 
+        if let chosenIndex  = cards.firstIndex(matching: card), !cards[chosenIndex].isFaceUp, !cards[chosenIndex].isMatched {
+            if let potentialMatchIndex = indexOfTheOneAndOnlyFaceUpCard {
+                if cards[chosenIndex].content == cards[potentialMatchIndex].content {
+                    cards[chosenIndex].isMatched = true
+                    cards[potentialMatchIndex].isMatched = true
+                }
+                cards[chosenIndex].isFaceUp = true
+            } else {
+                indexOfTheOneAndOnlyFaceUpCard = chosenIndex
             }
         }
-        
-        return 0 // TODO: - add nil
     }
-    
-   
 }

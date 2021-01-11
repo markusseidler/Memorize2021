@@ -17,7 +17,7 @@ struct EmojiMemoryGameView: View {
                     .onTapGesture {
                         viewModel.choose(card: card)
                     }
-//                    .padding()
+                    .padding(5)
             }
         .padding()
         .foregroundColor(Color.orange)
@@ -42,8 +42,11 @@ struct CardView: View {
                     .stroke(lineWidth: edgeLineWidth)
                 Text(card.content)
             } else {
-                RoundedRectangle(cornerRadius: cornerRadius)
-                    .fill()
+                if !card.isMatched {
+                    RoundedRectangle(cornerRadius: cornerRadius)
+                        .fill()
+                }
+                
             }
         }
         .font(Font.system(size: fontSize(for: size)))
