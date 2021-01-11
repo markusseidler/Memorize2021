@@ -10,7 +10,7 @@ import Foundation
 struct MemoryGame<CardContent> {
     
     struct Card: Identifiable {
-        var isFaceUp: Bool = false
+        var isFaceUp: Bool = true
         var isMatched: Bool = false
         var content: CardContent
         var id: Int
@@ -35,6 +35,7 @@ struct MemoryGame<CardContent> {
         
         let chosenIndex: Int = index(of: card)
         cards[chosenIndex].isFaceUp = !cards[chosenIndex].isFaceUp
+        print(cards[chosenIndex])
     }
     
     private func index(of card: Card) -> Int {
