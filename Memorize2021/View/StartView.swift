@@ -30,17 +30,18 @@ struct StartView: View {
                                 }
                             }
                         }
+                        .onDelete(perform: { indexSet in
+                            themes.removeTheme(at: indexSet)
+                        })
                     }
-                    // TODO: - Create a button in neomorphism style to add own theme that brings up nav sheet to add on name, icons, and color
-                    
                 }
                 .sheet(isPresented: $addThemeViewIsPresented, content: {
                     AddThemeView()
                 })
                 .navigationTitle("Memorize")
-                .navigationBarItems(leading: Button(action: { print("test") }, label: { Text("Remove theme") }),
-                                    trailing: Button(action: { addThemeViewIsPresented = true }, label: { Text("Add theme")} ))
-
+                .navigationBarItems(
+                    leading: EditButton(),
+                    trailing: Button(action: { addThemeViewIsPresented = true }, label: { Text("Add theme")} ))
         }
         .environmentObject(themes)
     }

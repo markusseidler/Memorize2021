@@ -27,6 +27,18 @@ class EmojiThemes: ObservableObject {
         saveTheme()
     }
     
+//    func removeTheme(_ theme: Theme) {
+//        if let matchingIndex = all.firstIndex(matching: theme) {
+//            all.remove(at: matchingIndex)
+//        }
+//        saveTheme()
+//    }
+    
+    func removeTheme(at offsets: IndexSet) {
+        all.remove(atOffsets: offsets)
+        saveTheme()
+    }
+    
     private func saveTheme() {
         if let encoded = try? JSONEncoder().encode(all) {
             UserDefaults.standard.set(encoded, forKey: saveKeyForThemes)
