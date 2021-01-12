@@ -7,11 +7,10 @@
 
 import SwiftUI
 
-struct Theme {
+struct Theme: Identifiable, Codable {
     var name: String
     var icons: [String]
-    var themeColor: Color
-    var numbersOfCards: Int {
-        icons.count
-    }
+    var color: String
+    var numbersOfCards: Int { icons.count }
+    var id = UUID()
 }
