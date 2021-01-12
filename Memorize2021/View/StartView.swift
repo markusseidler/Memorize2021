@@ -23,7 +23,7 @@ struct StartView: View {
                         ForEach(allThemes) { theme in
                             NavigationLink(
                                 // TODO: - Start Game based on selected theme
-                                destination: Text("\(theme.name)")) {
+                                destination: EmojiMemoryGameView(viewModel: EmojiMemoryGame(gameTheme: theme), themeColor: themes.getColorFromString(theme.color), themeName: theme.name)) {
                                 VStack(alignment: .leading) {
                                     Text(theme.name).foregroundColor(themes.getColorFromString(theme.color))
                                     Text("\(theme.icons.joined())")

@@ -9,18 +9,27 @@ import SwiftUI
  
 struct EmojiMemoryGameView: View {
     @StateObject var viewModel: EmojiMemoryGame
+    var themeColor: Color
+    var themeName: String
+    
+    @State private var score: Int = 0
 
     var body: some View {
          
-        Grid(viewModel.cards) { card in
-                CardView(card: card)
-                    .onTapGesture {
-                        viewModel.choose(card: card)
-                    }
-                    .padding(5)
-            }
+        VStack {
+            Text("Score: \(score)")
+            Grid(viewModel.cards) { card in
+                    CardView(card: card)
+                        .onTapGesture {
+                            viewModel.choose(card: card)
+                        }
+                        .padding(5)
+                }
+            
+        }
         .padding()
-        .foregroundColor(Color.orange)
+        .foregroundColor(themeColor)
+        navigationBarTitle(themeName, displayMode: .inline)
     }
 }
 
@@ -64,6 +73,6 @@ struct CardView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        EmojiMemoryGameView(viewModel: EmojiMemoryGame())
+        EmojiMemoryGameView(viewModel: EmojiMemoryGame(gameTheme: EmojiThemes().all.first!), themeColor: Color.red, themeName: "Test Screen")
     }
 }
