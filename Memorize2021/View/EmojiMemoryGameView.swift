@@ -27,6 +27,11 @@ struct EmojiMemoryGameView: View {
                         }
                         .padding(5)
                 }
+            Button(action: {
+                viewModel.resetGame()
+            }, label: {
+                Text("New Game")
+            })
             
         }
         .padding()

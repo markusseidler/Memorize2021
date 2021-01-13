@@ -37,6 +37,11 @@ class EmojiMemoryGame: ObservableObject {
         model!.choose(card: card, addPoints: 2, deductPoints: 1)
     }
     
+    func resetGame() {
+        model = MemoryGame(numberOfPairOfCards: Int.random(in: 2...gameTheme.icons.count), cardContentFactory: { (pairIndex) in
+            self.gameTheme.icons.map { String($0) }[pairIndex]})
+    }
+    
 
     // MARK: - Private API to start the game
     private var gameTheme: Theme
