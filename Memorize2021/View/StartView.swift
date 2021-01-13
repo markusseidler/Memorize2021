@@ -16,14 +16,14 @@ struct StartView: View {
     private var allThemes: [Theme] { themes.all }
     
     var body: some View {
-        NavigationView {
+        NavigationView {                                    
                 VStack {
                     List {
                         Text("Select your theme")
                         ForEach(allThemes) { theme in
                             NavigationLink(
                                 // TODO: - Start Game based on selected theme
-                                destination: EmojiMemoryGameView(viewModel: EmojiMemoryGame(), themeColor: themes.getColorFromString(theme.color), themeName: theme.name)) {
+                                destination: EmojiMemoryGameView(viewModel: EmojiMemoryGame(gameTheme: theme), themeColor: themes.getColorFromString(theme.color), themeName: theme.name)) {
                                 VStack(alignment: .leading) {
                                     Text(theme.name).foregroundColor(themes.getColorFromString(theme.color))
                                     Text("\(theme.icons.joined())")

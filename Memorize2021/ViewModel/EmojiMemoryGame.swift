@@ -22,12 +22,8 @@ class EmojiMemoryGame: ObservableObject {
     
     init(gameTheme: Theme) {
         self.gameTheme = gameTheme
-//        self.model = MemoryGame(numberOfPairOfCards: Int.random(in: 2...gameTheme.icons.count), cardContentFactory: { (pairIndex) in
-//            self.gameTheme.icons.map { String($0) }[pairIndex]
-//        })
-        self.model = MemoryGame<String>(numberOfPairOfCards: 4, cardContentFactory: { (pairIndex) in
-            let emojis = ["👻", "🎃", "🕷"]
-            return emojis[pairIndex]
+        self.model = MemoryGame(numberOfPairOfCards: Int.random(in: 2...gameTheme.icons.count), cardContentFactory: { (pairIndex) in
+            self.gameTheme.icons.map { String($0) }[pairIndex]
         })
     }
     
@@ -44,7 +40,7 @@ class EmojiMemoryGame: ObservableObject {
 
     // MARK: - Private API to start the game
     private var gameTheme: Theme
-    @Published private var model: MemoryGame<String>
+    @Published private var model: MemoryGame<String>?
     
     
     
@@ -55,7 +51,7 @@ class EmojiMemoryGame: ObservableObject {
 //        return MemoryGame<String>(numberOfPairOfCards: emojis.count) { pairIndex in
 //            emojis[pairIndex]
 //        }
-//        
+//
 //    }
 }
 

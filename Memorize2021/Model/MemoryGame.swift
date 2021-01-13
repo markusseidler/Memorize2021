@@ -68,7 +68,7 @@ struct MemoryGame<CardContent> where CardContent: Equatable{
     }
     
     mutating private func decreaseScore(by points: Int) {
-        score += points
+        score -= points
     }
     
     mutating func choose(card: Card, addPoints: Int, deductPoints: Int) {

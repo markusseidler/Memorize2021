@@ -31,7 +31,7 @@ struct EmojiMemoryGameView: View {
         }
         .padding()
         .foregroundColor(themeColor)
-        navigationBarTitle(themeName, displayMode: .inline)
+        .navigationBarTitle(themeName, displayMode: .inline)
     }
 }
 
