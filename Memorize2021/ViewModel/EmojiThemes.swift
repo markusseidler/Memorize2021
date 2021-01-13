@@ -39,6 +39,11 @@ class EmojiThemes: ObservableObject {
         saveTheme()
     }
     
+    static let exampleTheme = Theme(
+        name: "Halloween",
+        icons: ["👻", "🕸", "🕷", "🎃", "💀", "🧙‍♀️", "🧛‍♂️", "🍬"],
+        color: "orange")
+    
     private func saveTheme() {
         if let encoded = try? JSONEncoder().encode(all) {
             UserDefaults.standard.set(encoded, forKey: saveKeyForThemes)

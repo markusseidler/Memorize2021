@@ -44,28 +44,24 @@ struct CardView: View {
         }
     }
     
+    @ViewBuilder
+    // @ViewBuilder or alternatively, if could wrap the if statement and its view in a Group {}
     private func body(for size: CGSize) -> some View {
+        if card.isFaceUp || !card.isMatched {
         ZStack {
-            if card.isFaceUp {
-                RoundedRectangle(cornerRadius: cornerRadius)
-                    .fill(Color.white)
-                RoundedRectangle(cornerRadius: cornerRadius)
-                    .stroke(lineWidth: edgeLineWidth)
-                Text(card.content)
-            } else {
-                if !card.isMatched {
-                    RoundedRectangle(cornerRadius: cornerRadius)
-                        .fill()
-                }
-                
-            }
+            Pie(startAngle: Angle.degrees(-90), endAngle: Angle.degrees(20), clockwise: true)
+                .padding(5)
+                .opacity(0.4)
+            Text(card.content)
+                .font(Font.system(size: fontSize(for: size)))
         }
-        .font(Font.system(size: fontSize(for: size)))
+//        .modifier(Cardiy(isFaceUp: card.isFaceUp))
+        .cardify(isFaceUp: card.isFaceUp)
+        }
+        
     }
     
-    // MARK: - Drawing Constants
-    private let cornerRadius: CGFloat = 10.0
-    private let edgeLineWidth: CGFloat = 3.0
+    // MARK: - Drawing Constant
     private let fontScaleFactor: CGFloat = 0.75
     
     private func fontSize(for size: CGSize) -> CGFloat {
@@ -77,14 +73,15 @@ struct ContentView_Previews: PreviewProvider {
   
     
     static var previews: some View {
-        let gameTheme = Theme(name: "Test", icons: ["A", "B", "C", "D", "E"], color: "red")
+        let gameTheme = EmojiThemes.exampleTheme
         let viewModel = EmojiMemoryGame(gameTheme: gameTheme)
         let themeColor = Color.red
         let themeName = "Test Screen"
-        
-//        GroupPreview {
-//            EmojiMemoryGameView(viewModel: viewModel, themeColor: themeColor, themeName: themeName)
-//        }
-        EmojiMemoryGameView(viewModel: viewModel, themeColor: themeColor, themeName: themeName)
+        viewModel.choose(card: viewModel.cards[0])
+
+        return GroupPreview {
+            EmojiMemoryGameView(viewModel: viewModel, themeColor: themeColor, themeName: themeName)
+        }
+//        EmojiMemoryGameView(viewModel: viewModel, themeColor: themeColor, themeName: themeName)
     }
 }
