@@ -24,7 +24,6 @@ struct Cardify: ViewModifier {
             } else {
                 RoundedRectangle(cornerRadius: cornerRadius)
                     .fill()
-                content
             }
         }
     }
