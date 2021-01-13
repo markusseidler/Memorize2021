@@ -16,10 +16,18 @@ class EmojiMemoryGame: ObservableObject {
         model!.cards
     }
     
+   var score: Int {
+        model!.score
+    }
+    
     init(gameTheme: Theme) {
         self.gameTheme = gameTheme
-        self.model = MemoryGame(numberOfPairOfCards: Int.random(in: 2...gameTheme.icons.count), cardContentFactory: { (pairIndex) in
-            self.gameTheme.icons.map { String($0) }[pairIndex]
+//        self.model = MemoryGame(numberOfPairOfCards: Int.random(in: 2...gameTheme.icons.count), cardContentFactory: { (pairIndex) in
+//            self.gameTheme.icons.map { String($0) }[pairIndex]
+//        })
+        self.model = MemoryGame<String>(numberOfPairOfCards: 4, cardContentFactory: { (pairIndex) in
+            let emojis = ["👻", "🎃", "🕷"]
+            return emojis[pairIndex]
         })
     }
     
@@ -30,12 +38,14 @@ class EmojiMemoryGame: ObservableObject {
     // MARK: - Intents
     
     func choose(card: MemoryGame<String>.Card) {
-        model!.choose(card: card)
+        model!.choose(card: card, addPoints: 2, deductPoints: 1)
     }
     
+
     // MARK: - Private API to start the game
     private var gameTheme: Theme
-    @Published private var model: MemoryGame<String>?
+    @Published private var model: MemoryGame<String>
+    
     
     
     // otherwise: "Cannot use instance member 'createMemoryGame' within property initializer; property initializers run before 'self' is available"... functions cannot be used until all variables are initialized -> solution -> use static function (vars on the type)

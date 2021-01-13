@@ -12,7 +12,9 @@ struct EmojiMemoryGameView: View {
     var themeColor: Color
     var themeName: String
     
-    @State private var score: Int = 0
+    var score: Int {
+        viewModel.score
+    }
 
     var body: some View {
          
@@ -72,7 +74,17 @@ struct CardView: View {
 }
 
 struct ContentView_Previews: PreviewProvider {
+  
+    
     static var previews: some View {
-        EmojiMemoryGameView(viewModel: EmojiMemoryGame(gameTheme: EmojiThemes().all.first!), themeColor: Color.red, themeName: "Test Screen")
+        let gameTheme = Theme(name: "Test", icons: ["A", "B", "C", "D", "E"], color: "red")
+        let viewModel = EmojiMemoryGame(gameTheme: gameTheme)
+        let themeColor = Color.red
+        let themeName = "Test Screen"
+        
+//        GroupPreview {
+//            EmojiMemoryGameView(viewModel: viewModel, themeColor: themeColor, themeName: themeName)
+//        }
+        EmojiMemoryGameView(viewModel: viewModel, themeColor: themeColor, themeName: themeName)
     }
 }
